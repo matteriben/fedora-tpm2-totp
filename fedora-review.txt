@@ -1,0 +1,282 @@
+
+This is a review *template*. Besides handling the [ ]-marked tests you are
+also supposed to fix the template before pasting into bugzilla:
+- Add issues you find to the list of issues on top. If there isn't such
+  a list, create one.
+- Add your own remarks to the template checks.
+- Add new lines marked [!] or [?] when you discover new things not
+  listed by fedora-review.
+- Change or remove any text in the template which is plain wrong. In this
+  case you could also file a bug against fedora-review
+- Remove the "[ ] Manual check required", you will not have any such lines
+  in what you paste.
+- Remove attachments which you deem not really useful (the rpmlint
+  ones are mandatory, though)
+- Remove this text
+
+
+
+Package Review
+==============
+
+Legend:
+[x] = Pass, [!] = Fail, [-] = Not applicable, [?] = Not evaluated
+[ ] = Manual review needed
+
+
+
+===== MUST items =====
+
+C/C++:
+[ ]: Package does not contain kernel modules.
+[x]: If your application is a C or C++ application you must list a
+     BuildRequires against gcc, gcc-c++ or clang.
+[x]: Header files in -devel subpackage, if present.
+[x]: ldconfig not called in %post and %postun for Fedora 28 and later.
+[x]: Package does not contain any libtool archives (.la)
+[x]: Package contains no static executables.
+[x]: Rpath absent or only used for internal libs.
+[x]: Development (unversioned) .so files in -devel subpackage, if present.
+
+Generic:
+[ ]: Package is licensed with an open-source compatible license and meets
+     other legal requirements as defined in the legal section of Packaging
+     Guidelines.
+[ ]: License field in the package spec file matches the actual license.
+     Note: Checking patched sources after %prep for licenses. Licenses
+     found: "Unknown or generated", "BSD 3-Clause License", "BSD 3-Clause
+     License [generated file]", "FSF Unlimited License (with License
+     Retention) [generated file]", "FSF Unlimited License [generated
+     file]", "GNU General Public License v2.0 or later [generated file]",
+     "GNU General Public License v3.0 or later", "X11 License [generated
+     file]", "GNU General Public License v2.0 or later", "FSF All
+     Permissive License", "GNU Lesser General Public License, Version 2.1",
+     "FSF Unlimited License (with License Retention) and/or GNU General
+     Public License, Version 2", "FSF Unlimited License (with License
+     Retention)". 24 files have unknown license. Detailed output of
+     licensecheck in /home/matter/rpmbuild/SRPMS/review-
+     tpm2-totp/licensecheck.txt
+[ ]: License file installed when any subpackage combination is installed.
+[ ]: %build honors applicable compiler flags or justifies otherwise.
+[ ]: Package contains no bundled libraries without FPC exception.
+[ ]: Changelog in prescribed format.
+[ ]: Sources contain only permissible code or content.
+[ ]: Package contains desktop file if it is a GUI application.
+[ ]: Development files must be in a -devel package
+[ ]: Package uses nothing in %doc for runtime.
+[ ]: Package consistently uses macros (instead of hard-coded directory
+     names).
+[ ]: Package is named according to the Package Naming Guidelines.
+[ ]: Package does not generate any conflict.
+[ ]: Package obeys FHS, except libexecdir and /usr/target.
+[ ]: If the package is a rename of another package, proper Obsoletes and
+     Provides are present.
+[ ]: Requires correct, justified where necessary.
+[ ]: Spec file is legible and written in American English.
+[ ]: Package contains systemd file(s) if in need.
+[ ]: Useful -debuginfo package or justification otherwise.
+[ ]: Package is not known to require an ExcludeArch tag.
+[ ]: Large documentation must go in a -doc subpackage. Large could be size
+     (~1MB) or number of files.
+     Note: Documentation size is 12491 bytes in 6 files.
+[ ]: Package complies to the Packaging Guidelines
+[x]: Package successfully compiles and builds into binary rpms on at least
+     one supported primary architecture.
+[x]: Package installs properly.
+[x]: Rpmlint is run on all rpms the build produces.
+     Note: No rpmlint messages.
+[x]: If (and only if) the source package includes the text of the
+     license(s) in its own file, then that file, containing the text of the
+     license(s) for the package is included in %license.
+[x]: The License field must be a valid SPDX expression.
+[x]: Package requires other packages for directories it uses.
+[x]: Package must own all directories that it creates.
+[x]: Package does not own files or directories owned by other packages.
+[x]: Package uses either %{buildroot} or $RPM_BUILD_ROOT
+[x]: Package does not run rm -rf %{buildroot} (or $RPM_BUILD_ROOT) at the
+     beginning of %install.
+[x]: Macros in Summary, %description expandable at SRPM build time.
+[x]: Dist tag is present.
+[x]: Package does not contain duplicates in %files.
+[x]: Permissions on files are set properly.
+[x]: Package must not depend on deprecated() packages.
+[x]: Package use %makeinstall only when make install DESTDIR=... doesn't
+     work.
+[x]: Package is named using only allowed ASCII characters.
+[x]: Package does not use a name that already exists.
+[x]: Package is not relocatable.
+[x]: Sources used to build the package match the upstream source, as
+     provided in the spec URL.
+[x]: Spec file name must match the spec package %{name}, in the format
+     %{name}.spec.
+[x]: File names are valid UTF-8.
+[x]: Packages must not store files under /srv, /opt or /usr/local
+
+===== SHOULD items =====
+
+Generic:
+[ ]: If the source package does not include license text(s) as a separate
+     file from upstream, the packager SHOULD query upstream to include it.
+[ ]: Final provides and requires are sane (see attachments).
+[ ]: Fully versioned dependency in subpackages if applicable.
+     Note: No Requires: %{name}%{?_isa} = %{version}-%{release} in
+     tpm2-totp-devel
+[ ]: Package functions as described.
+[ ]: Latest version is packaged.
+[ ]: Package does not include license text files separate from upstream.
+[ ]: Patches link to upstream bugs/comments/lists or are otherwise
+     justified.
+[ ]: Sources are verified with gpgverify first in %prep if upstream
+     publishes signatures.
+     Note: gpgverify is not used.
+[ ]: Package should compile and build into binary rpms on all supported
+     architectures.
+[ ]: %check is present and all tests pass.
+[ ]: Packages should try to preserve timestamps of original installed
+     files.
+[x]: Reviewer should test that the package builds in mock.
+[x]: Buildroot is not present
+[x]: Package has no %clean section with rm -rf %{buildroot} (or
+     $RPM_BUILD_ROOT)
+[x]: No file requires outside of /etc, /bin, /sbin, /usr/bin, /usr/sbin.
+[x]: Packager, Vendor, PreReq, Copyright tags should not be in spec file
+[x]: Uses parallel make %{?_smp_mflags} macro.
+[x]: The placement of pkgconfig(.pc) files are correct.
+[x]: Sources can be downloaded from URI in Source: tag
+[x]: SourceX is a working URL.
+[x]: Spec use %global instead of %define unless justified.
+
+===== EXTRA items =====
+
+Generic:
+[x]: Rpmlint is run on debuginfo package(s).
+     Note: No rpmlint messages.
+[x]: Rpmlint is run on all installed packages.
+     Note: No rpmlint messages.
+[x]: Large data in /usr/share should live in a noarch subpackage if package
+     is arched.
+[x]: Package should not use obsolete m4 macros
+[x]: Spec file according to URL is the same as in SRPM.
+
+
+Rpmlint
+-------
+Checking: tpm2-totp-0.3.0-1.fc44.x86_64.rpm
+          tpm2-totp-devel-0.3.0-1.fc44.x86_64.rpm
+          tpm2-totp-0.3.0-1.fc44.src.rpm
+============================ rpmlint session starts ============================
+rpmlint: 2.7.0
+configuration:
+    /usr/lib/python3.13/site-packages/rpmlint/configdefaults.toml
+    /etc/xdg/rpmlint/fedora-spdx-licenses.toml
+    /etc/xdg/rpmlint/fedora.toml
+    /etc/xdg/rpmlint/scoring.toml
+    /etc/xdg/rpmlint/users-groups.toml
+    /etc/xdg/rpmlint/warn-on-functions.toml
+rpmlintrc: [PosixPath('/tmp/tmpgxr4zuss')]
+checks: 32, packages: 3
+
+ 3 packages and 0 specfiles checked; 0 errors, 0 warnings, 20 filtered, 0 badness; has taken 1.0 s 
+
+
+
+
+Rpmlint (debuginfo)
+-------------------
+Checking: tpm2-totp-debuginfo-0.3.0-1.fc44.x86_64.rpm
+============================ rpmlint session starts ============================
+rpmlint: 2.7.0
+configuration:
+    /usr/lib/python3.13/site-packages/rpmlint/configdefaults.toml
+    /etc/xdg/rpmlint/fedora-spdx-licenses.toml
+    /etc/xdg/rpmlint/fedora.toml
+    /etc/xdg/rpmlint/scoring.toml
+    /etc/xdg/rpmlint/users-groups.toml
+    /etc/xdg/rpmlint/warn-on-functions.toml
+rpmlintrc: [PosixPath('/tmp/tmpa0l763h8')]
+checks: 32, packages: 1
+
+ 1 packages and 0 specfiles checked; 0 errors, 0 warnings, 14 filtered, 0 badness; has taken 0.5 s 
+
+
+
+
+
+Rpmlint (installed packages)
+----------------------------
+============================ rpmlint session starts ============================
+rpmlint: 2.7.0
+configuration:
+    /usr/lib/python3.14/site-packages/rpmlint/configdefaults.toml
+    /etc/xdg/rpmlint/fedora-spdx-licenses.toml
+    /etc/xdg/rpmlint/fedora.toml
+    /etc/xdg/rpmlint/scoring.toml
+    /etc/xdg/rpmlint/users-groups.toml
+    /etc/xdg/rpmlint/warn-on-functions.toml
+checks: 32, packages: 3
+
+ 3 packages and 0 specfiles checked; 0 errors, 0 warnings, 31 filtered, 0 badness; has taken 2.4 s 
+
+
+
+Source checksums
+----------------
+https://keys.openpgp.org/vks/v1/by-fingerprint/FE2E6249201CA54A4FB90D066E80CA1446879D04 :
+  CHECKSUM(SHA256) this package     : bc267adae61e46f86f93c8bbf7a98bc431cdd3e3c1f0131687938c70c361413d
+  CHECKSUM(SHA256) upstream package : bc267adae61e46f86f93c8bbf7a98bc431cdd3e3c1f0131687938c70c361413d
+https://github.com/tpm2-software/tpm2-totp/releases/download/v0.3.0/tpm2-totp-0.3.0.tar.gz.asc :
+  CHECKSUM(SHA256) this package     : ad4db8629e140ffbedaf87db6cf26bfa94da65eebbca7257e0be99ef469a4e37
+  CHECKSUM(SHA256) upstream package : ad4db8629e140ffbedaf87db6cf26bfa94da65eebbca7257e0be99ef469a4e37
+https://github.com/tpm2-software/tpm2-totp/releases/download/v0.3.0/tpm2-totp-0.3.0.tar.gz :
+  CHECKSUM(SHA256) this package     : 1a8c83dc0d0dc58bd85a3fbfc9da6e39414c0d33f1a19886cde20f063f0c527b
+  CHECKSUM(SHA256) upstream package : 1a8c83dc0d0dc58bd85a3fbfc9da6e39414c0d33f1a19886cde20f063f0c527b
+
+
+Requires
+--------
+tpm2-totp (rpmlib, GLIBC filtered):
+    /bin/bash
+    /bin/sh
+    dracut
+    libc.so.6()(64bit)
+    libply-boot-client.so.5()(64bit)
+    libply.so.5()(64bit)
+    libqrencode.so.4()(64bit)
+    libtpm2-totp.so.0()(64bit)
+    libtss2-esys.so.0()(64bit)
+    libtss2-mu.so.0()(64bit)
+    libtss2-rc.so.0()(64bit)
+    libtss2-tctildr.so.0()(64bit)
+    qrencode
+    rtld(GNU_HASH)
+    tpm2-tools
+
+tpm2-totp-devel (rpmlib, GLIBC filtered):
+    /usr/bin/pkg-config
+    libtpm2-totp.so.0()(64bit)
+    pkgconfig(tss2-esys)
+    pkgconfig(tss2-mu)
+    tpm2-totp(x86-64)
+
+
+
+Provides
+--------
+tpm2-totp:
+    libtpm2-totp.so.0()(64bit)
+    tpm2-totp
+    tpm2-totp(x86-64)
+
+tpm2-totp-devel:
+    pkgconfig(tpm2-totp)
+    tpm2-totp-devel
+    tpm2-totp-devel(x86-64)
+
+
+
+Generated by fedora-review 0.10.0 (e79b66b) last change: 2023-07-24
+Command line :/usr/sbin/fedora-review -n tpm2-totp
+Buildroot used: fedora-rawhide-x86_64
+Active plugins: Generic, C/C++, Shell-api
+Disabled plugins: Ocaml, Java, fonts, SugarActivity, Python, Perl, Haskell, PHP, R
+Disabled flags: EXARCH, EPEL6, EPEL7, DISTTAG, BATCH

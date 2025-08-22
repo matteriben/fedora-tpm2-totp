@@ -1,0 +1,15 @@
+--- dist/dracut/module-setup.sh.in
++++ dist/dracut/module-setup.sh.in
+@@ -5,10 +5,10 @@ check() {
+         if tpm2-totp calculate >/dev/null 2>&1; then
+             return 0
+         else
+-            dinfo "dracut module 'tpm2-totp' will not be installed because no TOTP is configured; run 'tpm2-totp generate'!"
++            dwarning "dracut module 'tpm2-totp' will be installed even though no TOTP is configured; run 'tpm2-totp generate' to enable it"
+         fi
+     fi
+-    return 255
++    return 0
+ }
+ 
+ install() {
